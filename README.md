@@ -38,14 +38,14 @@ The `Vector` objets was designed for support n dimensions. Such as `u = Vector(1
 
 `Matrix` was designed for support n * m dimensions, so you don't have to take care at dimensions. If an error occured, it's because the dimensions doesn't allow to calculate what you want. For exemple, the matrix's determinant is only available with squarred matrix. As well as for `Vector`, don't forget the dot.
 
-For initialise a matrix follow this scheme `M = Matrix([[1, 2], [3, 4]])`. You can everithing you want, just take care to have the hooks : `Matrix([[0]])` for a matrix with one row and one column.
+For initialise a matrix follow this scheme `M = Matrix([1, 2], [3, 4])`. You can everything you want, just take care to have one row per argument : `Matrix([0])` for a matrix with one row and one column.
 
 ### Matricial manipulations available
 
 #### Basical handlings
 
  - `show()` : Displays the matrix to the shell row by row.
- - `get_coef(i, j)` : Returns the i,j coefficient of the matrix. (Please take care, as well as for list, the index start at 0.)
+ - `get_coef(i, j)` : Returns the i, j coefficient of the matrix. (Please take care, as well as for list, the index start at 0.)
  - `get_dim()` : Returns the dimension of the matrix. The results is a tuple : `(row, column)`.
 
 #### Handlings on the matrix itself

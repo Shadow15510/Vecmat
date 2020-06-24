@@ -41,8 +41,8 @@ class Vector:
     return round(degrees(acos(self.dotP(vec) / (self.norm()*vec.norm()))), 2)
 
 class Matrix:
-  def __init__(self, content):
-    self.content = content
+  def __init__(self, *row):
+    self.content = [i for i in row]
 
   def show(self):
     for i in range(len(self.content)): print(self.content[i])
