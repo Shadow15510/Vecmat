@@ -8,7 +8,7 @@ Vecmat is a librairie of vectorial and matricial manipulations. This librairie i
 
 ### Licence
 
-This code is provided with licence (CC BY-NC-SA 4.0). For more information about licence please [https://creativecommons.org/licenses/by-nc-sa/4.0/](click here).
+This code is provided with licence (CC BY-NC-SA 4.0). For more information about licence please [click here](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 ## Vector's manipulations
 
@@ -71,3 +71,13 @@ The `Vector` objets was designed for support n dimensions. Such as `u = Vector(1
  - `s_mat(jmp_i, jmp_j)` : Returns the matrix without the i-row and j-column.
  - `comat()` : Returns the co-matrix.
  - `inverse()` : Returns the inverse matrix. (Please take care to the determinant.)
+
+## Other manipulations
+
+### Generalities
+
+These handlings are not concerned by the oriented-object code.
+
+### Available functions
+
+ - `identity(n)` : Returns an identity matrix of order n. (This is a `Matrix` object.)
