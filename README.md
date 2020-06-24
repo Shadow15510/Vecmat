@@ -38,6 +38,8 @@ The `Vector` objets was designed for support n dimensions. Such as `u = Vector(1
 
 `Matrix` was designed for support n * m dimensions, so you don't have to take care at dimensions. If an error occured, it's because the dimensions doesn't allow to calculate what you want. For exemple, the matrix's determinant is only available with squarred matrix. As well as for `Vector`, don't forget the dot.
 
+For initialise a matrix follow this scheme `M = Matrix([[1, 2], [3, 4]])`. You can everithing you want, just take care to have the hooks : `Matrix([[0]])` for a matrix with one row and one column.
+
 ### Matricial manipulations available
 
 #### Basical handlings
