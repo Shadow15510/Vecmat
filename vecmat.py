@@ -1,13 +1,12 @@
 # --------------------------------------------------
-# Vecmat
+# Vecmat (Version 1.1)
 # by Sha-Chan~
-# last version : 1.0 on June 2020
+# last version released on the 25 of June.
 #
-# Code provided with licence (CC BY-NC-SA 4.0)
+# code provided with licence (CC BY-NC-SA 4.0)
 # for more information about licence :
 # https://creativecommons.org/licenses/by-nc-sa/4.0/
 # --------------------------------------------------
-
 
 from math import *
 
@@ -40,6 +39,24 @@ class Vector:
   def angle(self, vec):
     return round(degrees(acos(self.dotP(vec) / (self.norm()*vec.norm()))), 2)
 
+  def plus(self, vec):
+    return Vector(*[self.coord[i] + vec.coord[i] for i in range(self.dim)])
+
+  def minus(self, vec):
+    return Vector(*[self.coord[i] - vec.coord[i] for i in range(self.dim)])
+
+  def times_vec(self, vec):
+    return Vector(*[self.coord[i] * vec.coord[i] for i in range(self.dim)])
+
+  def times_nb(self, nb):
+    return Vector(*[self.coord[i] * nb for i in range(self.dim)])
+
+  def by_vec(self, vec):
+    return Vector(*[self.coord[i] / vec.coord[i] for i in range(self.dim)])
+
+  def by_nb(self, nb):
+    return Vector(*[self.coord[i] / nb for i in range(self.dim)])
+
 class Matrix:
   def __init__(self, *row):
     self.content = [i for i in row]
@@ -54,28 +71,28 @@ class Matrix:
     return len(self.content), len(self.content[0])
     
   def plus(self, mat):
-    return Matrix([[self.content[i][j] + mat.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
+    return Matrix(*[[self.content[i][j] + mat.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
     
   def minus(self, mat):
-    return Matrix([[self.content[i][j] - mat.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
+    return Matrix(*[[self.content[i][j] - mat.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
  
   def times_mat(self, mat):
-    return Matrix([[sum([self.content[j][i] * mat.content[i][j] for i in range(len(self.content[0]))]) for k in range(len(mat.content[0]))] for j in range(len(self.content))])
+    return Matrix(*[[sum([self.content[j][i] * mat.content[i][j] for i in range(len(self.content[0]))]) for k in range(len(mat.content[0]))] for j in range(len(self.content))])
  
   def times_nb(self, nb):
-    return Matrix([[self.content[i][j] * nb for j in range(len(self.content[0]))] for i in range(len(self.content))])
+    return Matrix(*[[self.content[i][j] * nb for j in range(len(self.content[0]))] for i in range(len(self.content))])
     
   def by_mat(self, mat):
     return self.times_mat(mat.inverse())
     
   def by_nb(self, nb):
-    return Matrix([[self.content[i][j] / nb for j in range(len(self.content[0]))] for i in range(len(self.content))])
+    return Matrix(*[[self.content[i][j] / nb for j in range(len(self.content[0]))] for i in range(len(self.content))])
     
   def augment(self, mat):
      [self.content[i].append(mat.content[i][j]) for j in range(len(self.content[0])) for i in range(len(self.content))]
         
   def sub(self, row_st, column_st, row_ed, column_ed):
-    return Matrix([[self.content[i][j] for j in range(column_st, column_ed+1)] for i in range(row_st, row_ed+1)])
+    return Matrix(*[[self.content[i][j] for j in range(column_st, column_ed+1)] for i in range(row_st, row_ed+1)])
   
   def det(self):
     def calc_det(mat):
@@ -87,13 +104,13 @@ class Matrix:
     return calc_det(self)
     
   def transpose(self):
-    return Matrix([[self.content[i][j] for i in range(len(self.content))] for j in range(len(self.content[0]))])
+    return Matrix(*[[self.content[i][j] for i in range(len(self.content))] for j in range(len(self.content[0]))])
   
   def s_mat(self, jmp_i, jmp_j):
-    return Matrix([[self.content[j][i] for i in range(len(self.content)) if i != jmp_i] for j in range(len(self.content[0])) if j != jmp_j])  
+    return Matrix(*[[self.content[j][i] for i in range(len(self.content)) if i != jmp_i] for j in range(len(self.content[0])) if j != jmp_j])  
 
   def comat(self):
-    return Matrix([[(-1) ** (i + j) * self.s_mat(i, j).det() for i in range(len(self.content))] for j in range(len(self.content[0]))])
+    return Matrix(*[[(-1) ** (i + j) * self.s_mat(i, j).det() for i in range(len(self.content))] for j in range(len(self.content[0]))])
 
   def inverse(self):
     return self.comat().transpose().times_nb(1 / self.det())
@@ -111,7 +128,7 @@ class Matrix:
     for i in range(len(self.content)): self.content[i][index] = new_column.content[i][0]
     
 def identity(n):
-  return Matrix([[(0,1)[i == j] for i in range(n)] for j in range(n)])
+  return Matrix(*[[int(i == j) for i in range(n)] for j in range(n)])
     
     
     

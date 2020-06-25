@@ -4,7 +4,9 @@
 
 ### Presentation
 
-Vecmat is a librairie of vectorial and matricial manipulations. This librairie is oriented-object, so you can use `vector` and `matrix` like `list` or `str` objects.
+Vecmat is a librairie of vectorial and matricial manipulations. This librairie is oriented-object, so you can use `Vector` and `Matrix` like `list` or `str` objects.
+
+Last version (version 1.1) released on 25 of June.
 
 ### Licence
 
@@ -18,13 +20,22 @@ The `Vector` objets was designed for support n dimensions. Such as `u = Vector(1
 
 ### Vectorial manipulations available
 
-#### Handling on the vector itself
+#### Handlings on the vector itself
 
  - `show()` : Displays the vector's coordinates.
  - `norm()` : Returns the vector's norm.
  - `unitV()` : Returns the unitary vector.
 
-#### Handling on several vectors
+#### Basical mathematical operations between two vectors
+
+ - `plus(mat)` : Adds the two vectors and returns a `Vector` object.
+ - `minus(mat)` : Substracts the two vectors and returns a `Vector` object.
+ - `times_mat(mat)` : Multiplies the two vectors and returns a `Vector` object.
+ - `times_nb(nb)` : Multiplies by a number and returns a `Vector` object.
+ - `by_mat(mat)` : Divides two vectors and returns a `Vector` object.
+ - `by_nb(nb)` : Divides by a number and returns a `Vector` object.
+
+#### Advanced vector manipulations
 
  - `dotP(vec)` : Returns the dot product.
  - `crossP(vec)` : Returns the cross product. (Only available for two three-dimensions vectors.)
@@ -36,24 +47,21 @@ The `Vector` objets was designed for support n dimensions. Such as `u = Vector(1
 
 ### Generalities
 
-`Matrix` was designed for support n * m dimensions, so you don't have to take care at dimensions. If an error occured, it's because the dimensions doesn't allow to calculate what you want. For exemple, the matrix's determinant is only available with squarred matrix. As well as for `Vector`, don't forget the dot.
+`Matrix` was designed for support n * m dimensions, so you don't have to take care at dimensions. If an error occured, it's because the dimensions doesn't allow to calculate what you want. For exemple, the matrix's determinant is only available with squarred matrix. As well as for `Vector`, don't forget the dot for use these handlings.
 
 For initialise a matrix follow this scheme `M = Matrix([1, 2], [3, 4])`. You can everything you want, just take care to have one row per argument : `Matrix([0])` for a matrix with one row and one column.
 
 ### Matricial manipulations available
 
-#### Basical handlings
+#### Handlings on the matrix itself
 
  - `show()` : Displays the matrix to the shell row by row.
  - `get_coef(i, j)` : Returns the i, j coefficient of the matrix. (Please take care, as well as for list, the index start at 0.)
  - `get_dim()` : Returns the dimension of the matrix. The results is a tuple : `(row, column)`.
-
-#### Handlings on the matrix itself
-
  - `switch_row(row_1, row_2)` : Reverses the two rows.
  - `switch_column(column_1, column_2)` : Reverses the two columns.
  - `write_row(index, new_row)` : Replaces the index-row by the new row
- - `write_column(index, new_column)` : Replaces the index-column by the new column 
+ - `write_column(index, new_column)` : Replaces the index-column by the new column
 
 #### Basical mathematical operations
 
