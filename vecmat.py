@@ -28,7 +28,7 @@ class Vector:
     return sum([self.coord[i] * vec.coord[i] for i in range(len(self.coord))])
   
   def crossP(self, vec):
-    if self.dim == 3 and vec.dim == 3: return Vector(self.z*vec.y - self.z*vec.z, self.x*vec.z - self.z*vec.x, self.y*vec.x - self.x*vec.y)
+    if self.dim == 3 and vec.dim == 3: return Vector(self.z*vec.y - self.y*vec.z, self.x*vec.z - self.z*vec.x, self.y*vec.x - self.x*vec.y)
 
   def det(self, *vec):
     return Matrix([self.coord] + [i.coord for i in vec]).det()
