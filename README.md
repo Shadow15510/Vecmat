@@ -6,7 +6,7 @@
 
 Vecmat is a librairie of vectorial and matricial manipulations. This librairie is oriented-object, so you can use `Vector` and `Matrix` like `list` or `str` objects.
 
-Last version (version 1.1) released on 25 of June.
+Version 1.2 released on 28 of June.
 
 ### Licence
 

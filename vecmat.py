@@ -1,7 +1,7 @@
 # --------------------------------------------------
-# Vecmat (Version 1.1)
+# Vecmat (Version 1.2)
 # by Sha-Chan~
-# last version released on the 25 of June.
+# last version released on the 28 of June.
 #
 # code provided with licence (CC BY-NC-SA 4.0)
 # for more information about licence :
