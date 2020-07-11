@@ -15,6 +15,38 @@ class Vector:
     self.coord = list(coord)
     self.dim = len(coord)
 
+  def __add__(self, vec: "Vector"):
+    if vec.dim != self.dim:
+      raise ArithmeticError("The dimensions are incompatible")
+    return Vector(*[self.coord[i] + vec.coord[i] for i in range(self.dim)])
+
+  def __sub__(self, vec: "Vector"):
+    if vec.dim != self.dim:
+      raise ArithmeticError("The dimensions are incompatible")
+    return Vector(*[self.coord[i] - vec.coord[i] for i in range(self.dim)])
+
+  def __mul__(self, x):
+    if isinstance(x, (float, int)):
+      return Vector(*[self.coord[i] * x for i in range(self.dim)])
+    if isinstance(x, Vector):
+      return Vector(*[self.coord[i] * x.coord[i] for i in range(self.dim)])
+    else:
+      raise TypeError("The wrong types were given")
+
+  def __truediv__(self, x):
+    if isinstance(x, (float, int)):
+      return Vector(*[self.coord[i] / x for i in range(self.dim)])
+    if isinstance(x, Vector):
+      return Vector(*[self.coord[i] / x.coord[i] for i in range(self.dim)])
+    else:
+      raise TypeError("The wrong types were given")
+
+  def __str__(self):
+    return "(" + ", ".join(map(str, self.coord)) + ")"
+
+  __radd__ = __add__
+  __rmul__ = __mul__
+
   def norm(self):
     return sqrt(sum([i**2 for i in self.coord]))
 
@@ -36,51 +68,41 @@ class Vector:
   def angle(self, vec: "Vector"):
     return round(degrees(acos(self.dotP(vec) / (self.norm()*vec.norm()))), 2)
 
-  def __str__(self):
-    return "(" + ", ".join(map(str, self.coord)) + ")"
+class Matrix:
+  def __init__(self, *row):
+    self.content = [i for i in row]
 
-  def __add__(self, vec: "Vector"):
-    if vec.dim != self.dim:
+  def __add__(self, matrix: "Matrix"):
+    if self.get_dim() != matrix.get_dim():
       raise ArithmeticError("The dimensions are incompatible")
-    return Vector(*[self.coord[i] + vec.coord[i] for i in range(self.dim)])
-
-  def __sub__(self, vec: "Vector"):
-    if vec.dim != self.dim:
+    return Matrix(*[[self.content[i][j] + matrix.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
+  
+  def __sub__(self, matrix: "Matrix"):
+    if self.get_dim() != matrix.get_dim():
       raise ArithmeticError("The dimensions are incompatible")
-    return Vector(*[self.coord[i] - vec.coord[i] for i in range(self.dim)])
-
-  def __radd__(self, vec: "Vector"):
-    if vec.dim != self.dim:
-      raise ArithmeticError("The dimensions are incompatible")
-    return Vector(*[self.coord[i] + vec.coord[i] for i in range(self.dim)])
-
+    return Matrix(*[[self.content[i][j] - matrix.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
+ 
   def __mul__(self, x):
     if isinstance(x, (float, int)):
-      return Vector(*[self.coord[i] * x for i in range(self.dim)])
-    if isinstance(x, Vector):
-      return Vector(*[self.coord[i] * x.coord[i] for i in range(self.dim)])
-    else:
-      raise TypeError("The wrong types were given")
-
-  def __rmul__(self, x):
-    if isinstance(x, (float, int)):
-      return Vector(*[self.coord[i] * x for i in range(self.dim)])
-    if isinstance(x, Vector):
-      return Vector(*[self.coord[i] * x.coord[i] for i in range(self.dim)])
+      return Matrix(*[[self.content[i][j] * x for j in range(len(self.content[0]))] for i in range(len(self.content))])
+    elif isinstance(x, Matrix):
+      return Matrix(*[[sum([self.content[j][i] * x.content[i][j] for i in range(len(self.content[0]))]) for k in range(len(x.content[0]))] for j in range(len(self.content))])
     else:
       raise TypeError("The wrong types were given")
 
   def __truediv__(self, x):
     if isinstance(x, (float, int)):
-      return Vector(*[self.coord[i] / x for i in range(self.dim)])
-    if isinstance(x, Vector):
-      return Vector(*[self.coord[i] / x.coord[i] for i in range(self.dim)])
+      return Matrix(*[[self.content[i][j] / x for j in range(len(self.content[0]))] for i in range(len(self.content))])
+    elif isinstance(x, Matrix):
+      return self * x.inverse()
     else:
       raise TypeError("The wrong types were given")
+  
+  def __str__(self):
+    return "\n".join(map(str, self.content))
 
-class Matrix:
-  def __init__(self, *row):
-    self.content = [i for i in row]
+  __radd__ = __add__
+  __rmul__ = __mul__
 
   def get_coef(self, i, j):
     return self.content[i][j]
@@ -126,49 +148,6 @@ class Matrix:
 
   def write_column(self, indef: "int", new_column):
     for i in range(len(self.content)): self.content[i][index] = new_column.content[i][0]
-
-  def __add__(self, matrix: "Matrix"):
-    if self.get_dim() != matrix.get_dim():
-      raise ArithmeticError("The dimensions are incompatible")
-    return Matrix(*[[self.content[i][j] + matrix.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
-  
-  def __radd__(self, matrix: "Matrix"):
-    if self.get_dim() != matrix.get_dim():
-      raise ArithmeticError("The dimensions are incompatible")
-    return Matrix(*[[self.content[i][j] + matrix.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
-  
-  def __sub__(self, matrix: "Matrix"):
-    if self.get_dim() != matrix.get_dim():
-      raise ArithmeticError("The dimensions are incompatible")
-    return Matrix(*[[self.content[i][j] - matrix.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
- 
-  def __mul__(self, x):
-    if isinstance(x, (float, int)):
-      return Matrix(*[[self.content[i][j] * x for j in range(len(self.content[0]))] for i in range(len(self.content))])
-    elif isinstance(x, Matrix):
-      return Matrix(*[[sum([self.content[j][i] * x.content[i][j] for i in range(len(self.content[0]))]) for k in range(len(x.content[0]))] for j in range(len(self.content))])
-    else:
-      raise TypeError("The wrong types were given")
-
-  def __rmul__(self, x):
-    if isinstance(x, (float, int)):
-      return Matrix(*[[self.content[i][j] * x for j in range(len(self.content[0]))] for i in range(len(self.content))])
-    elif isinstance(x, Matrix):
-      return Matrix(*[[sum([self.content[j][i] * x.content[i][j] for i in range(len(self.content[0]))]) for k in range(len(x.content[0]))] for j in range(len(self.content))])
-    else:
-      raise TypeError("The wrong types were given")
-
-  def __truediv__(self, x):
-    if isinstance(x, (float, int)):
-      return Matrix(*[[self.content[i][j] / x for j in range(len(self.content[0]))] for i in range(len(self.content))])
-    elif isinstance(x, Matrix):
-      return self * x.inverse()
-    else:
-      raise TypeError("The wrong types were given")
-  
-  def __str__(self):
-    return "\n".join(map(str, self.content))
-
     
 def identity(n: "int"):
   return Matrix(*[[int(i == j) for i in range(n)] for j in range(n)])
