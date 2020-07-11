@@ -22,18 +22,15 @@ The `Vector` objets was designed for support n dimensions. Such as `u = Vector(1
 
 #### Handlings on the vector itself
 
- - `show()` : Displays the vector's coordinates.
+ - Vectors are printable and return a string representation of their coordonate
  - `norm()` : Returns the vector's norm.
  - `unitV()` : Returns the unitary vector.
 
 #### Basical mathematical operations between two vectors
 
- - `plus(mat)` : Adds the two vectors and returns a `Vector` object.
- - `minus(mat)` : Substracts the two vectors and returns a `Vector` object.
  - `times_mat(mat)` : Multiplies the two vectors and returns a `Vector` object.
- - `times_nb(nb)` : Multiplies by a number and returns a `Vector` object.
  - `by_mat(mat)` : Divides two vectors and returns a `Vector` object.
- - `by_nb(nb)` : Divides by a number and returns a `Vector` object.
+ - The vectors supports the basic operation `+` and `-` for the addition and substraction between two vectors and `*` and `/` for the multiplication and division between a vector and a real number, they also work for element-wise multiplication between two vectors
 
 #### Advanced vector manipulations
 
@@ -55,7 +52,7 @@ For initialise a matrix follow this scheme `M = Matrix([1, 2], [3, 4])`. You can
 
 #### Handlings on the matrix itself
 
- - `show()` : Displays the matrix to the shell row by row.
+ - The matrices are printable and return a string representation of the column and rows
  - `get_coef(i, j)` : Returns the i, j coefficient of the matrix. (Please take care, as well as for list, the index start at 0.)
  - `get_dim()` : Returns the dimension of the matrix. The results is a tuple : `(row, column)`.
  - `switch_row(row_1, row_2)` : Reverses the two rows.
@@ -65,13 +62,9 @@ For initialise a matrix follow this scheme `M = Matrix([1, 2], [3, 4])`. You can
 
 #### Basical mathematical operations
 
- - `plus(mat)` : Adds the two matrixs and returns a `Matrix` object.
- - `minus(mat)` : Substracts the two matrixs and returns a `Matrix` object.
  - `times_mat(mat)` : Multiplies the two matrixs and returns a `Matrix` object.
- - `times_nb(nb)` : Multiplies by a number and returns a `Matrix` object.
  - `by_mat(mat)` : Divides the two matrixs and returns a `Matrix` object.
- - `by_nb(nb)` : Divides by a number and returns a `Matrix` object.
-
+ - The matrices supports basic operation, `+` and `-` for addition/substraction between two matrices and `*` and `/` for multiplication and division between a matrix and a real number, they also work for multiplication between two matrices
 #### Advanced matricial manipulations
 
  - `augment(mat)` : Allows to augment the size of the matrix by adding another matrix to the first one.
