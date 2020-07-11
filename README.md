@@ -30,7 +30,7 @@ The `Vector` objets was designed for support n dimensions. Such as `u = Vector(1
 
  - `times_mat(mat)` : Multiplies the two vectors and returns a `Vector` object.
  - `by_mat(mat)` : Divides two vectors and returns a `Vector` object.
- - The vectors supports the basic operation `+` and `-` for the addition and substraction between two vectors and `*` and `/` for the multiplication and division between a vector and a real number
+ - The vectors supports the basic operation `+` and `-` for the addition and substraction between two vectors and `*` and `/` for the multiplication and division between a vector and a real number, they also work for element-wise multiplication between two vectors
 
 #### Advanced vector manipulations
 
@@ -64,7 +64,7 @@ For initialise a matrix follow this scheme `M = Matrix([1, 2], [3, 4])`. You can
 
  - `times_mat(mat)` : Multiplies the two matrixs and returns a `Matrix` object.
  - `by_mat(mat)` : Divides the two matrixs and returns a `Matrix` object.
- - The matrices supports basic operation, `+` and `-` for addition/substraction between two matrices and `*` and `/` for multiplication and division between a matrix and a real number
+ - The matrices supports basic operation, `+` and `-` for addition/substraction between two matrices and `*` and `/` for multiplication and division between a matrix and a real number, they also work for multiplication between two matrices
 #### Advanced matricial manipulations
 
  - `augment(mat)` : Allows to augment the size of the matrix by adding another matrix to the first one.
