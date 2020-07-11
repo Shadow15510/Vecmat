@@ -40,32 +40,15 @@ class Vector:
   def angle(self, vec: "Vector"):
     return round(degrees(acos(self.dotP(vec) / (self.norm()*vec.norm()))), 2)
 
-  #FIXME: replaced by native addition
-  def plus(self, vec: "Vector"):
-    """Replaced by the native addition do not use it : deprecated"""
-    return Vector(*[self.coord[i] + vec.coord[i] for i in range(self.dim)])
-
-  #FIXME: replaced by native substraction
-  def minus(self, vec: "Vector"):
-    """Replaced by the native substraction do not use it : deprecated"""
-    return Vector(*[self.coord[i] - vec.coord[i] for i in range(self.dim)])
 
   #FIXME: wtf is this shit clem?
   def times_vec(self, vec: "Vector"):
     """Congratulations, you broke the mathematics"""
     return Vector(*[self.coord[i] * vec.coord[i] for i in range(self.dim)])
 
-  #FIXME: replaced by native multiplication
-  def times_nb(self, nb):
-    return Vector(*[self.coord[i] * nb for i in range(self.dim)])
-
   #FIXME: wtf is this shit clem?
   def by_vec(self, vec: "Vector"):
     return Vector(*[self.coord[i] / vec.coord[i] for i in range(self.dim)])
-  
-  #FIXME: replaced by native division
-  def by_nb(self, nb):
-    return Vector(*[self.coord[i] / nb for i in range(self.dim)])
 
   def __str__(self):
     return "(" + ", ".join(map(str, self.coord)) + ")"
