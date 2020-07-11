@@ -84,21 +84,21 @@ class Matrix:
     return len(self.content), len(self.content[0])
   
   #FIXME: AGAIN WHAT. THE. FUCK. IS. THIS. SHIT. CLEM???!
-  def times_mat(self, mat):
+  def times_mat(self, mat: "Matrix"):
     return Matrix(*[[sum([self.content[j][i] * mat.content[i][j] for i in range(len(self.content[0]))]) for k in range(len(mat.content[0]))] for j in range(len(self.content))])
     
   #FIXME: YOU REALLY WANT MY DEATH.
-  def by_mat(self, mat):
+  def by_mat(self, mat: "Matrix"):
     return self.times_mat(mat.inverse())
     
-  def augment(self, mat):
+  def augment(self, mat: "Matrix"):
      [self.content[i].append(mat.content[i][j]) for j in range(len(self.content[0])) for i in range(len(self.content))]
         
   def sub(self, row_st, column_st, row_ed, column_ed):
     return Matrix(*[[self.content[i][j] for j in range(column_st, column_ed+1)] for i in range(row_st, row_ed+1)])
   
   def det(self):
-    def calc_det(mat):
+    def calc_det(mat: "Matrix"):
       rslt = 0
       if mat.get_dim() == (1, 1): rslt += mat.content[0][0]
       else:
@@ -109,7 +109,7 @@ class Matrix:
   def transpose(self):
     return Matrix(*[[self.content[i][j] for i in range(len(self.content))] for j in range(len(self.content[0]))])
   
-  def s_mat(self, jmp_i, jmp_j):
+  def s_mat(self, jmp_i: "int", jmp_j: "int"):
     return Matrix(*[[self.content[j][i] for i in range(len(self.content)) if i != jmp_i] for j in range(len(self.content[0])) if j != jmp_j])  
 
   def comat(self):
@@ -118,16 +118,16 @@ class Matrix:
   def inverse(self):
     return self.comat().transpose().times_nb(1 / self.det())
 
-  def switch_row(self, row_1, row_2):
+  def switch_row(self, row_1: "int", row_2: "int"):
     for j in range(len(self.content[0])): self.content[row_1][j], self.content[row_2][j] = self.content[row_2][j], self.content[row_1][j]
 
-  def switch_column(self, column_1, column_2):
+  def switch_column(self, column_1: "int", column_2: "int"):
     for i in range(len(self.content)): self.content[i][column_1], self.content[i][column_2] = self.content[i][column_2], self.content[i][column_1]
     
-  def write_row(self, index, new_row):
+  def write_row(self, index: "int", new_row):
     for j in range(len(self.content[0])): self.content[index][j] = new_row.content[0][j]
 
-  def write_column(self, indef, new_column):
+  def write_column(self, indef: "int", new_column):
     for i in range(len(self.content)): self.content[i][index] = new_column.content[i][0]
 
   def __add__(self, matrix: "Matrix"):
@@ -158,7 +158,7 @@ class Matrix:
     return "\n".join(map(str, self.content))
 
     
-def identity(n):
+def identity(n: "int"):
   return Matrix(*[[int(i == j) for i in range(n)] for j in range(n)])
     
     
