@@ -47,7 +47,7 @@ class Vector:
     return Vector(*[self.coord[i] / vec.coord[i] for i in range(self.dim)])
 
   def __str__(self):
-    return str(tuple(self.coord))
+    return "(" + ", ".join(map(str, self.coord)) + ")"
 
   def __add__(self, vec: "Vector"):
     if vec.dim != self.dim:
