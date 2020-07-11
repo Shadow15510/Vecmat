@@ -14,11 +14,7 @@ class Vector:
   def __init__(self, *coord):
     self.coord = list(coord)
     self.dim = len(coord)
-    
-  #FIXME: replaced by the __str__ native method
-  def show(self):
-    print(self.coord)
-    
+
   def norm(self):
     return sqrt(sum([i**2 for i in self.coord]))
 
@@ -81,39 +77,19 @@ class Matrix:
   def __init__(self, *row):
     self.content = [i for i in row]
 
-  #FIXME: replaced by the native __str__ function
-  def show(self):
-    for i in range(len(self.content)): print(self.content[i])
-  
   def get_coef(self, i, j):
     return self.content[i][j]
     
   def get_dim(self):
     return len(self.content), len(self.content[0])
   
-  #FIXME : replaced by the native addition
-  def plus(self, mat):
-    return Matrix(*[[self.content[i][j] + mat.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
-  
-  #FIXME: replaced by the native substraction
-  def minus(self, mat):
-    return Matrix(*[[self.content[i][j] - mat.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
-
   #FIXME: AGAIN WHAT. THE. FUCK. IS. THIS. SHIT. CLEM???!
   def times_mat(self, mat):
     return Matrix(*[[sum([self.content[j][i] * mat.content[i][j] for i in range(len(self.content[0]))]) for k in range(len(mat.content[0]))] for j in range(len(self.content))])
-  
-  #FIXME: replaced by the native multiplication
-  def times_nb(self, nb):
-    return Matrix(*[[self.content[i][j] * nb for j in range(len(self.content[0]))] for i in range(len(self.content))])
     
   #FIXME: YOU REALLY WANT MY DEATH.
   def by_mat(self, mat):
     return self.times_mat(mat.inverse())
-    
-  #FIXME: replaced by the native true division
-  def by_nb(self, nb):
-    return Matrix(*[[self.content[i][j] / nb for j in range(len(self.content[0]))] for i in range(len(self.content))])
     
   def augment(self, mat):
      [self.content[i].append(mat.content[i][j]) for j in range(len(self.content[0])) for i in range(len(self.content))]
