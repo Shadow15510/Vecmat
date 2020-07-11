@@ -14,7 +14,8 @@ class Vector:
   def __init__(self, *coord):
     self.coord = list(coord)
     self.dim = len(coord)
-      
+    
+  #FIXME: replaced by the __str__ native method
   def show(self):
     print(self.coord)
     
@@ -24,38 +25,74 @@ class Vector:
   def unitV(self):
     return Vector(*[i / self.norm() for i in self.coord])
     
-  def dotP(self, vec):
+  def dotP(self, vec: "Vector"):
     return sum([self.coord[i] * vec.coord[i] for i in range(len(self.coord))])
   
-  def crossP(self, vec):
+  def crossP(self, vec: "Vector"):
     if self.dim == 3 and vec.dim == 3: return Vector(self.z*vec.y - self.y*vec.z, self.x*vec.z - self.z*vec.x, self.y*vec.x - self.x*vec.y)
 
   def det(self, *vec):
     return Matrix([self.coord] + [i.coord for i in vec]).det()
   
-  def colinear(self, vec):
+  def colinear(self, vec: "Vector"):
     return not self.det(vec)
 
-  def angle(self, vec):
+  def angle(self, vec: "Vector"):
     return round(degrees(acos(self.dotP(vec) / (self.norm()*vec.norm()))), 2)
 
-  def plus(self, vec):
+  #FIXME: replaced by native addition
+  def plus(self, vec: "Vector"):
+    """Replaced by the native addition do not use it : deprecated"""
     return Vector(*[self.coord[i] + vec.coord[i] for i in range(self.dim)])
 
-  def minus(self, vec):
+  #FIXME: replaced by native substraction
+  def minus(self, vec: "Vector"):
+    """Replaced by the native substraction do not use it : deprecated"""
     return Vector(*[self.coord[i] - vec.coord[i] for i in range(self.dim)])
 
-  def times_vec(self, vec):
+  #FIXME: wtf is this shit clem?
+  def times_vec(self, vec: "Vector"):
+    """Congratulations, you broke the mathematics"""
     return Vector(*[self.coord[i] * vec.coord[i] for i in range(self.dim)])
 
+  #FIXME: replaced by native multiplication
   def times_nb(self, nb):
     return Vector(*[self.coord[i] * nb for i in range(self.dim)])
 
-  def by_vec(self, vec):
+  #FIXME: wtf is this shit clem?
+  def by_vec(self, vec: "Vector"):
     return Vector(*[self.coord[i] / vec.coord[i] for i in range(self.dim)])
-
+  
+  #FIXME: replaced by native division
   def by_nb(self, nb):
     return Vector(*[self.coord[i] / nb for i in range(self.dim)])
+
+  def __str__(self):
+    return "(" + ", ".join(map(str, self.coord)) + ")"
+
+  def __add__(self, vec: "Vector"):
+    if vec.dim != self.dim:
+      raise ArithmeticError("The dimensions are incompatible")
+    return Vector(*[self.coord[i] + vec.coord[i] for i in range(self.dim)])
+
+  def __sub__(self, vec: "Vector"):
+    if vec.dim != self.dim:
+      raise ArithmeticError("The dimensions are incompatible")
+    return Vector(*[self.coord[i] - vec.coord[i] for i in range(self.dim)])
+
+  def __radd__(self, vec: "Vector"):
+    if vec.dim != self.dim:
+      raise ArithmeticError("The dimensions are incompatible")
+    return Vector(*[self.coord[i] + vec.coord[i] for i in range(self.dim)])
+
+  def __mul__(self, x: float):
+    return Vector(*[self.coord[i] * x for i in range(self.dim)])
+
+  def __rmul__(self, x: float):
+    return Vector(*[self.coord[i] * x for i in range(self.dim)])
+
+  def __truediv__(self, x: float):
+    return Vector(*[self.coord[i] / x for i in range(self.dim)])
 
 class Matrix:
   def __init__(self, *row):
