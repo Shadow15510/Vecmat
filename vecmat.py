@@ -81,6 +81,7 @@ class Matrix:
   def __init__(self, *row):
     self.content = [i for i in row]
 
+  #FIXME: replaced by the native __str__ function
   def show(self):
     for i in range(len(self.content)): print(self.content[i])
   
@@ -89,22 +90,28 @@ class Matrix:
     
   def get_dim(self):
     return len(self.content), len(self.content[0])
-    
+  
+  #FIXME : replaced by the native addition
   def plus(self, mat):
     return Matrix(*[[self.content[i][j] + mat.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
-    
+  
+  #FIXME: replaced by the native substraction
   def minus(self, mat):
     return Matrix(*[[self.content[i][j] - mat.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
- 
+
+  #FIXME: AGAIN WHAT. THE. FUCK. IS. THIS. SHIT. CLEM???!
   def times_mat(self, mat):
     return Matrix(*[[sum([self.content[j][i] * mat.content[i][j] for i in range(len(self.content[0]))]) for k in range(len(mat.content[0]))] for j in range(len(self.content))])
- 
+  
+  #FIXME: replaced by the native multiplication
   def times_nb(self, nb):
     return Matrix(*[[self.content[i][j] * nb for j in range(len(self.content[0]))] for i in range(len(self.content))])
     
+  #FIXME: YOU REALLY WANT MY DEATH.
   def by_mat(self, mat):
     return self.times_mat(mat.inverse())
     
+  #FIXME: replaced by the native true division
   def by_nb(self, nb):
     return Matrix(*[[self.content[i][j] / nb for j in range(len(self.content[0]))] for i in range(len(self.content))])
     
@@ -146,6 +153,34 @@ class Matrix:
 
   def write_column(self, indef, new_column):
     for i in range(len(self.content)): self.content[i][index] = new_column.content[i][0]
+
+  def __add__(self, matrix: "Matrix"):
+    if self.get_dim() != matrix.get_dim():
+      raise ArithmeticError("The dimensions are incompatible")
+    return Matrix(*[[self.content[i][j] + matrix.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
+  
+  def __radd__(self, matrix: "Matrix"):
+    if self.get_dim() != matrix.get_dim():
+      raise ArithmeticError("The dimensions are incompatible")
+    return Matrix(*[[self.content[i][j] + matrix.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
+  
+  def __sub__(self, matrix: "Matrix"):
+    if self.get_dim() != matrix.get_dim():
+      raise ArithmeticError("The dimensions are incompatible")
+    return Matrix(*[[self.content[i][j] - matrix.content[i][j] for j in range(len(self.content[0]))] for i in range(len(self.content))])
+ 
+  def __mul__(self, x: float):
+    return Matrix(*[[self.content[i][j] * x for j in range(len(self.content[0]))] for i in range(len(self.content))])
+ 
+  def __rmul__(self, x: float):
+    return Matrix(*[[self.content[i][j] * x for j in range(len(self.content[0]))] for i in range(len(self.content))])
+
+  def __truediv__(self, x: float):
+    return Matrix(*[[self.content[i][j] / x for j in range(len(self.content[0]))] for i in range(len(self.content))])
+
+  def __str__(self):
+    return "\n".join(map(str, self.content))
+
     
 def identity(n):
   return Matrix(*[[int(i == j) for i in range(n)] for j in range(n)])
