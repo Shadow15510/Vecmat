@@ -18,43 +18,44 @@ class Vector:
   def __add__(self, vec: "Vector"):
     if vec.dim != self.dim:
       raise ArithmeticError("The dimensions are incompatible")
-    return Vector(*[self.coord[i] + vec.coord[i] for i in range(self.dim)])
+    return Vector(*map(lambda x,y: x+y, self.coord, vec.coord))
 
   def __sub__(self, vec: "Vector"):
     if vec.dim != self.dim:
       raise ArithmeticError("The dimensions are incompatible")
-    return Vector(*[self.coord[i] - vec.coord[i] for i in range(self.dim)])
+    return Vector(*map(lambda x,y: x-y, self.coord, vec.coord))
 
   def __mul__(self, x):
     if isinstance(x, (float, int)):
-      return Vector(*[self.coord[i] * x for i in range(self.dim)])
+      return Vector(*map(lambda y: x*y, self.coord))
     if isinstance(x, Vector):
-      return Vector(*[self.coord[i] * x.coord[i] for i in range(self.dim)])
+      return Vector(*map(lambda y,z: y*z, self.coord, x.coord))
     else:
       raise TypeError("The wrong types were given")
 
   def __truediv__(self, x):
     if isinstance(x, (float, int)):
-      return Vector(*[self.coord[i] / x for i in range(self.dim)])
+      return Vector(*map(lambda y: y/x, self.coord))
     if isinstance(x, Vector):
-      return Vector(*[self.coord[i] / x.coord[i] for i in range(self.dim)])
+      return Vector(*map(lambda y,z: y/z, self.coord, x.coord))
     else:
       raise TypeError("The wrong types were given")
 
   def __str__(self):
-    return "(" + ", ".join(map(str, self.coord)) + ")"
+    return str(tuple(self.coord))
 
   __radd__ = __add__
   __rmul__ = __mul__
 
-  def norm(self):
-    return sqrt(sum([i**2 for i in self.coord]))
+  def __abs__(self):
+    return sqrt(sum(map(lambda i: i**2, self.coord)))
 
   def unitV(self):
-    return Vector(*[i / self.norm() for i in self.coord])
+    a = abs(self)
+    return Vector(*map(lambda x: x/a, self.coord))
     
   def dotP(self, vec: "Vector"):
-    return sum([self.coord[i] * vec.coord[i] for i in range(len(self.coord))])
+    return sum(map(lambda x,y: x*y, self.coord, vec.coord))
   
   def crossP(self, vec: "Vector"):
     if self.dim == 3 and vec.dim == 3: return Vector(self.z*vec.y - self.y*vec.z, self.x*vec.z - self.z*vec.x, self.y*vec.x - self.x*vec.y)
@@ -66,11 +67,12 @@ class Vector:
     return not self.det(vec)
 
   def angle(self, vec: "Vector"):
-    return round(degrees(acos(self.dotP(vec) / (self.norm()*vec.norm()))), 2)
+    return round(degrees(acos(self.dotP(vec) / (abs(self)*abs(vec)))), 2)
 
 class Matrix:
   def __init__(self, *row):
     self.content = [i for i in row]
+
 
   def __add__(self, matrix: "Matrix"):
     if self.get_dim() != matrix.get_dim():
@@ -124,7 +126,17 @@ class Matrix:
         for i in range(len(mat.content[0])): rslt += (mat.content[0][i], -mat.content[0][i])[i % 2] * calc_det(mat.s_mat(i, 0))
       return rslt
     return calc_det(self)
+
+  def gauss_jordan_determinant(self):
+    pass
     
+  def swapping_rows(self, r1: int, r2: int):
+    self.content[r1], self.content[r2] = self.content[r2], self.content[r1]
+
+  def add_multiple_of_row(self, row1: int, row2: int, multiple: float):
+    #Multiply row1 by multiple and adding that to row2
+    self.content[row2] = list(map(lambda x,y: x+y, map(lambda x: x*multiple, self.content[row1]), self.content[row2]))
+
   def transpose(self):
     return Matrix(*[[self.content[i][j] for i in range(len(self.content))] for j in range(len(self.content[0]))])
   
@@ -135,7 +147,7 @@ class Matrix:
     return Matrix(*[[(-1) ** (i + j) * self.s_mat(i, j).det() for i in range(len(self.content))] for j in range(len(self.content[0]))])
 
   def inverse(self):
-    return self.comat().transpose().times_nb(1 / self.det())
+    return self.comat().transpose() * (1/self.det())
 
   def switch_row(self, row_1: "int", row_2: "int"):
     for j in range(len(self.content[0])): self.content[row_1][j], self.content[row_2][j] = self.content[row_2][j], self.content[row_1][j]
