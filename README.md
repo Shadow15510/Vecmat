@@ -4,7 +4,7 @@
 
 ### Presentation
 
-Vecmat is a librairie of vectorial and matricial manipulations. This librairie is oriented-object, so you can use `Vector` and `Matrix` like `list` or `str` objects. This librairie was made by @coco33920 and @Shadow15510.
+Vecmat is a librairie of vectorial and matricial manipulations. This librairie is oriented-object, so you can use `Vector` and `Matrix` like `list` or `str` objects. This librairie was made by Charlotte THOMAS and Sha-Chan~.
 
 Version 1.3 released on 11 of July.
 
