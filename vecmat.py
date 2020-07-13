@@ -48,14 +48,14 @@ class Vector:
   __rmul__ = __mul__
 
   def __abs__(self):
-    return sqrt(sum(map(lambda i: i**2, self.coord)))
+    return sqrt(sum(list(map(lambda i: i**2, self.coord))))
 
   def unitV(self):
     a = abs(self)
     return Vector(*map(lambda x: x/a, self.coord))
     
   def dotP(self, vec: "Vector"):
-    return sum(map(lambda x,y: x*y, self.coord, vec.coord))
+    return sum(list(map(lambda x,y: x*y, self.coord, vec.coord)))
   
   def crossP(self, vec: "Vector"):
     if self.dim == 3 and vec.dim == 3: return Vector(self.z*vec.y - self.y*vec.z, self.x*vec.z - self.z*vec.x, self.y*vec.x - self.x*vec.y)
