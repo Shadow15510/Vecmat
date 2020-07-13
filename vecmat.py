@@ -1,7 +1,7 @@
 # --------------------------------------------------
-# Vecmat (Version 1.3)
+# Vecmat (Version 1.3.1 - Bêta)
 # by Charlotte THOMAS and Sha-Chan~
-# last version released on the 11 of July.
+# last version released on the 12 of July.
 #
 # code provided with licence (CC BY-NC-SA 4.0)
 # for more information about licence :
@@ -44,11 +44,14 @@ class Vector:
   def __str__(self):
     return str(tuple(self.coord))
 
-  __radd__ = __add__
-  __rmul__ = __mul__
-
   def __abs__(self):
     return sqrt(sum(list(map(lambda i: i**2, self.coord))))
+
+  def __getitem__(self, index):
+    return self.coord[index]
+
+  __radd__ = __add__
+  __rmul__ = __mul__
 
   def unitV(self):
     a = abs(self)
@@ -69,10 +72,10 @@ class Vector:
   def angle(self, vec: "Vector"):
     return round(degrees(acos(self.dotP(vec) / (abs(self)*abs(vec)))), 2)
 
+
 class Matrix:
   def __init__(self, *row):
     self.content = [i for i in row]
-
 
   def __add__(self, matrix: "Matrix"):
     if self.get_dim() != matrix.get_dim():
@@ -103,11 +106,11 @@ class Matrix:
   def __str__(self):
     return "\n".join(map(str, self.content))
 
+  def __getitem__(self, index):
+    return self.content[index]
+
   __radd__ = __add__
   __rmul__ = __mul__
-
-  def get_coef(self, i, j):
-    return self.content[i][j]
     
   def get_dim(self):
     return len(self.content), len(self.content[0])
@@ -130,9 +133,6 @@ class Matrix:
   def gauss_jordan_determinant(self):
     pass
     
-  def swapping_rows(self, r1: int, r2: int):
-    self.content[r1], self.content[r2] = self.content[r2], self.content[r1]
-
   def add_multiple_of_row(self, row1: int, row2: int, multiple: float):
     #Multiply row1 by multiple and adding that to row2
     self.content[row2] = list(map(lambda x,y: x+y, map(lambda x: x*multiple, self.content[row1]), self.content[row2]))
@@ -150,7 +150,7 @@ class Matrix:
     return self.comat().transpose() * (1/self.det())
 
   def switch_row(self, row_1: "int", row_2: "int"):
-    for j in range(len(self.content[0])): self.content[row_1][j], self.content[row_2][j] = self.content[row_2][j], self.content[row_1][j]
+    self.content[row_1], self.content[row_2] = self.content[row_2], self.content[row_1]
 
   def switch_column(self, column_1: "int", column_2: "int"):
     for i in range(len(self.content)): self.content[i][column_1], self.content[i][column_2] = self.content[i][column_2], self.content[i][column_1]
