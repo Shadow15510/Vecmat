@@ -1,6 +1,6 @@
 # --------------------------------------------------
 # Vecmat (Version 1.3)
-# by coco33920 ans Sha-Chan~
+# by coco33920 and Shadow15510
 # last version released on the 11 of July.
 #
 # code provided with licence (CC BY-NC-SA 4.0)
