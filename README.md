@@ -6,7 +6,7 @@
 
 Vecmat is a librairie of vectorial and matricial manipulations. This librairie is oriented-object, so you can use `Vector` and `Matrix` like `list` or `str` objects. This librairie was made by Charlotte THOMAS and Sha-Chan~.
 
-Version 1.3.1 - Bêta released on 12 of July.
+Version 1.3.2 - Bêta released on 13 of July.
 
 ### Licence
 
@@ -16,14 +16,15 @@ This code is provided with licence (CC BY-NC-SA 4.0). For more information about
 
 ### Generalities
 
-The `Vector` objets was designed for support n dimensions. Such as `u = Vector(1, 1)` creates a two-dimensional vector, or even `u = Vector(1, 2, 3, 4, 5)` creates a five-dimensional vector. (Don't forget the dot for use the handlings, for instance : `my_vector.norm()`.)
+The `Vector` objets was designed for support n dimensions. Such as `u = Vector(1, 1)` creates a two-dimensional vector, or even `u = Vector(1, 2, 3, 4, 5)` creates a five-dimensional vector. (Don't forget the dot for use the handlings, for instance : `my_vector.unitV()`.)
 
 ### Vectorial manipulations available
 
 #### Handlings on the vector itself
 
  - Vectors are printable and return a string representation of their coordonates.
- - `norm()` : Returns the vector's norm.
+ - Theys also are subscriptable : `my_vector[0]` returns the first coordinate.
+ - For the vector's norm, use `abs`function. `abs(my_vector)`
  - `unitV()` : Returns the unitary vector.
 
 #### Basical mathematical operations between two vectors
@@ -51,6 +52,7 @@ For initialise a matrix follow this scheme `M = Matrix([1, 2], [3, 4])`. You can
 #### Handlings on the matrix itself
 
  - The matrices are printable and return a string representation of the column and rows.
+ - They also are subscriptable.
  - `get_dim()` : Returns the dimension of the matrix. The results is a tuple : `(row, column)`.
  - `switch_row(row_1, row_2)` : Reverses the two rows.
  - `switch_column(column_1, column_2)` : Reverses the two columns.
