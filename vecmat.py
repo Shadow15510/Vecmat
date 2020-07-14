@@ -143,7 +143,7 @@ class Matrix:
   def det(self):
     return self.__gauss_jordan_elimination()[1]
 
-  def raw_echelon_form(self):
+  def row_echelon_form(self):
     return self.__gauss_jordan_elimination()[0]
 
   def trace(self):
@@ -156,9 +156,6 @@ class Matrix:
   def transpose(self):
     return Matrix(*[[self[i][j] for i in range(len(self.content))] for j in range(len(self[0]))])
   
-  def s_mat(self, jmp_i: "int", jmp_j: "int"):
-    return Matrix(*[[self[j][i] for i in range(len(self.content)) if i != jmp_i] for j in range(len(self[0])) if j != jmp_j])  
-
   def comat(self):
     return Matrix(*[[(-1) ** (i + j) * self.s_mat(i, j).det() for i in range(len(self.content))] for j in range(len(self[0]))])
 
@@ -176,7 +173,7 @@ class Matrix:
 
   def write_column(self, indef: "int", new_column: "list"):
     for i in range(len(self.content)): self[i][index] = new_column[i][0]
-    
+     
 def identity(n: "int"):
   return Matrix(*[[int(i == j) for i in range(n)] for j in range(n)])
     

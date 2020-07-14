@@ -70,7 +70,6 @@ The matrices supports basic operation, `+` and `-` for addition/substraction bet
  - `Matrix.sub(row_st, column_st, row_ed, column_ed)` : Returns a sub-matrix between the given limits.
  - `Matrix.det()` : Returns the matrix's determinant.
  - `Matrix.tranpose()` : Returns the transpose matrix.
- - `Matrix.s_mat(jmp_i, jmp_j)` : Returns the matrix without the i-row and j-column.
  - `Matrix.comat()` : Returns the co-matrix.
  - `Matrix.inverse()` : Returns the inverse matrix. (Please take care to the determinant.)
  - `Matrix.row_echelon_form()` : Returns the row echelon form of the matrix. (Calculate by the Gauss-Jordan elimination.)
