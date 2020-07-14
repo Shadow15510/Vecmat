@@ -6,7 +6,7 @@
 
 Vecmat is a librairie of vectorial and matricial manipulations. This librairie is oriented-object, so you can use `Vector` and `Matrix` like `list` or `str` objects. This librairie was made by Charlotte THOMAS and Sha-Chan~.
 
-Version 1.3.2 - Bêta released on 13 of July.
+Version 1.3.4 - Bêta released on 14 of July.
 
 ### Licence
 
@@ -24,8 +24,7 @@ The `Vector` objets was designed for support n dimensions. Such as `u = Vector(1
 
  - Vectors are printable and return a string representation of their coordonates.
  - Theys also are subscriptable : `my_vector[0]` returns the first coordinate.
- - For the vector's norm, use `abs`function. `abs(my_vector)`
- - `unitV()` : Returns the unitary vector.
+ - `Vector.unitV()` : Returns the unitary vector.
 
 #### Basical mathematical operations between two vectors
 
@@ -33,11 +32,11 @@ The vectors supports the basic operation `+` and `-` for the addition and substr
 
 #### Advanced vector manipulations
 
- - `dotP(vec)` : Returns the dot product.
- - `crossP(vec)` : Returns the cross product. (Only available for two three-dimensions vectors.)
- - `det(*vec)` : Returns the vectors's determinant. You can pass several vectors without any problem. (Please take care to pass n vectors to n dimensions.)
- - `colinear(vec)` : Tests the colinearty between the vectors. Return a boolean.
- - `angle(vec)` : Returns the angle in degrees between the vectors.
+ - `Vector.dotP(vec)` : Returns the dot product.
+ - `Vector.crossP(vec)` : Returns the cross product. (Only available for two three-dimensions vectors.)
+ - `Vector.det(*vec)` : Returns the vectors's determinant. You can pass several vectors without any problem. (Please take care to pass n vectors to n dimensions.)
+ - `Vector.colinear(vec)` : Tests the colinearty between the vectors. Return a boolean.
+ - `Vector.angle(vec)` : Returns the angle in degrees between the vectors.
 
 ## Matrix's manipulations
 
@@ -47,17 +46,19 @@ The vectors supports the basic operation `+` and `-` for the addition and substr
 
 For initialise a matrix follow this scheme `M = Matrix([1, 2], [3, 4])`. You can everything you want, just take care to have one row per argument : `Matrix([0])` for a matrix with one row and one column.
 
+When you use `write_row` or `write_column`, please take care, the `new_row` or `new_column` argument is a `list` object, not a matrix.
+
 ### Matricial manipulations available
 
 #### Handlings on the matrix itself
 
  - The matrices are printable and return a string representation of the column and rows.
  - They also are subscriptable.
- - `get_dim()` : Returns the dimension of the matrix. The results is a tuple : `(row, column)`.
- - `switch_row(row_1, row_2)` : Reverses the two rows.
- - `switch_column(column_1, column_2)` : Reverses the two columns.
- - `write_row(index, new_row)` : Replaces the index-row by the new row
- - `write_column(index, new_column)` : Replaces the index-column by the new column
+ - `Matrix.get_dim()` : Returns the dimension of the matrix. The results is a tuple : `(row, column)`.
+ - `Matrix.switch_row(row_1, row_2)` : Reverses the two rows.
+ - `Matrix.switch_column(column_1, column_2)` : Reverses the two columns.
+ - `Matrix.write_row(index, new_row)` : Replaces the index-row by the new row.
+ - `Matrix.write_column(index, new_column)` : Replaces the index-column by the new column.
 
 #### Basical mathematical operations
 
@@ -65,13 +66,14 @@ The matrices supports basic operation, `+` and `-` for addition/substraction bet
 
 #### Advanced matricial manipulations
 
- - `augment(mat)` : Allows to augment the size of the matrix by adding another matrix to the first one.
- - `sub(row_st, column_st, row_ed, column_ed)` : Returns a sub-matrix between the given limits.
- - `det()` : Returns the matrix's determinant.
- - `tranpose()` : Returns the transpose matrix.
- - `s_mat(jmp_i, jmp_j)` : Returns the matrix without the i-row and j-column.
- - `comat()` : Returns the co-matrix.
- - `inverse()` : Returns the inverse matrix. (Please take care to the determinant.)
+ - `Matrix.augment(mat)` : Allows to augment the size of the matrix by adding another matrix to the first one.
+ - `Matrix.sub(row_st, column_st, row_ed, column_ed)` : Returns a sub-matrix between the given limits.
+ - `Matrix.det()` : Returns the matrix's determinant.
+ - `Matrix.tranpose()` : Returns the transpose matrix.
+ - `Matrix.s_mat(jmp_i, jmp_j)` : Returns the matrix without the i-row and j-column.
+ - `Matrix.comat()` : Returns the co-matrix.
+ - `Matrix.inverse()` : Returns the inverse matrix. (Please take care to the determinant.)
+ - `Matrix.row_echelon_form()` : Returns the row echelon form of the matrix. (Calculate by the Gauss-Jordan elimination.)
 
 ## Other manipulations
 
@@ -82,3 +84,4 @@ These handlings are not concerned by the oriented-object code.
 ### Available functions
 
  - `identity(n)` : Returns an identity matrix of order n. (This is a `Matrix` object.)
+ - `abs(vec)` : Returns the vec's norm. 

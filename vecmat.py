@@ -1,7 +1,7 @@
 # --------------------------------------------------
-# Vecmat (Version 1.3.2 - Bêta)
+# Vecmat (Version 1.3.4 - Bêta)
 # by Charlotte THOMAS and Sha-Chan~
-# last version released on the 13 of July.
+# last version released on the 14 of July.
 #
 # code provided with licence (CC BY-NC-SA 4.0)
 # for more information about licence :
@@ -111,7 +111,26 @@ class Matrix:
 
   __radd__ = __add__
   __rmul__ = __mul__
+
+  
+  def __gauss_jordan_elimination(self):
+    def add_multiple_of_row(self, row1: int, row2: int, multiple: float):
+      self[row2][:] = list(map(lambda x,y: x+y, map(lambda x: x*multiple, self[row1]), self[row2]))
+
+    j, mat, sign, det = -1, self, 0, 1
     
+    for i in range(len(mat.content) - 1):
+      j += 1
+      det *= mat[i][j]
+      
+      for k in range(i + 1, len(mat[0])):
+        if not mat[i][j]:
+          mat.switch_row(k, i)
+          sign += 1
+        mat.add_multiple_of_row(i, k, -mat[k][j] / mat[i][j])
+        
+    return mat, mat.trace() * det * (-1)**sign
+  
   def get_dim(self):
     return len(self.content), len(self[0])
     
@@ -122,21 +141,18 @@ class Matrix:
     return Matrix(*[[self[i][j] for j in range(column_st, column_ed+1)] for i in range(row_st, row_ed+1)])
   
   def det(self):
-    def calc_det(mat: "Matrix"):
-      rslt = 0
-      if mat.get_dim() == (1, 1): rslt += mat[0][0]
-      else:
-        for i in range(len(mat[0])): rslt += (mat[0][i], -mat[0][i])[i % 2] * calc_det(mat.s_mat(i, 0))
-      return rslt
-    return calc_det(self)
+    return self.__gauss_jordan_elimination()[1]
 
-  def gauss_jordan_determinant(self):
-    pass
-    
-  def add_multiple_of_row(self, row1: int, row2: int, multiple: float):
-    #Multiply row1 by multiple and adding that to row2
-    self[row2] = list(map(lambda x,y: x+y, map(lambda x: x*multiple, self[row1]), self[row2]))
+  def raw_echelon_form(self):
+    return self.__gauss_jordan_elimination()[0]
 
+  def trace(self):
+    rslt = 1
+    for i in range(len(self.content)):
+      for j in range(len(self[0])):
+        if i == j: rslt *= self[i][j]
+    return rslt
+        
   def transpose(self):
     return Matrix(*[[self[i][j] for i in range(len(self.content))] for j in range(len(self[0]))])
   
@@ -150,7 +166,7 @@ class Matrix:
     return self.comat().transpose() * (1/self.det())
 
   def switch_row(self, row_1: "int", row_2: "int"):
-    self[row_1], self[row_2] = self[row_2], self[row_1]
+    self[row_1][:], self[row_2][:] = self[row_2][:], self[row_1][:]
 
   def switch_column(self, column_1: "int", column_2: "int"):
     for i in range(len(self.content)): self[i][column_1], self[i][column_2] = self[i][column_2], self[i][column_1]
