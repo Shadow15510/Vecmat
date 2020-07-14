@@ -114,9 +114,10 @@ class Matrix:
 
   
   def __gauss_jordan_elimination(self):
-    def add_multiple_of_row(self, row1: int, row2: int, multiple: float):
-      self[row2][:] = list(map(lambda x,y: x+y, map(lambda x: x*multiple, self[row1]), self[row2]))
-
+    def add_multiple_of_row(mat, row1: int, row2: int, multiple: float):
+      mat[row2][:] = list(map(lambda x,y: x+y, map(lambda x: x*multiple, self[row1]), self[row2]))
+      return mat
+      
     j, mat, sign, det = -1, self, 0, 1
     
     for i in range(len(mat.content) - 1):
@@ -127,7 +128,7 @@ class Matrix:
         if not mat[i][j]:
           mat.switch_row(k, i)
           sign += 1
-        mat.add_multiple_of_row(i, k, -mat[k][j] / mat[i][j])
+        mat = add_multiple_of_row(mat, i, k, -mat[k][j] / mat[i][j])
         
     return mat, mat.trace() * det * (-1)**sign
   
