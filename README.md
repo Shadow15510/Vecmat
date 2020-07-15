@@ -95,8 +95,10 @@ These handlings are not concerned by the oriented-object code.
 
 If we have a linear system like : 
 
+```
 2x + y = 0
 x - 2y = 10
+```
 
 We can transpose this system into a matrix : 
 
