@@ -6,7 +6,9 @@
 
 Vecmat is a librairie of vectorial and matricial manipulations. This librairie is oriented-object, so you can use `Vector` and `Matrix` like `list` or `str` objects. This librairie was made by Charlotte THOMAS and Sha-Chan~.
 
-Version 1.3.4 - Bêta released on 14 of July.
+There is two file : `vecmat.py` is the complete librairie for computer and `vecmat_nw.py` is the same librairie but without some functions like `solve`. This lighter version is specially design for the Numworks calculators but you can execute it on other calculators like Casio Graph 90+E or Graph 35+E II.
+
+Version 1.4 released on 15 of July.
 
 ### Licence
 
@@ -73,7 +75,7 @@ The matrices supports basic operation, `+` and `-` for addition/substraction bet
  - `Matrix.comat()` : Returns the co-matrix.
  - `Matrix.inverse()` : Returns the inverse matrix. (Please take care to the determinant.)
  - `Matrix.row_echelon_form()` : Returns the row echelon form of the matrix. (Calculate by the Gauss-Jordan elimination.)
-
+ - `Matrix.solve(*solution)` : Solves the linear system describe by Matrix. [Exemple](https://github.com/Shadow15510/Vecmat#Linear-system-solver)
 ## Other manipulations
 
 ### Generalities
@@ -83,4 +85,29 @@ These handlings are not concerned by the oriented-object code.
 ### Available functions
 
  - `identity(n)` : Returns an identity matrix of order n. (This is a `Matrix` object.)
- - `abs(vec)` : Returns the vec's norm. 
+ - `abs(vec)` : Returns the vec's norm.
+
+## Exemple
+
+### Matrix
+
+#### Linear system solver
+
+If we have a linear system like : 
+
+2x + y = 0
+x - 2y = 10
+
+We can transpose this system into a matrix : 
+
+`>>> system = Matrix([2, 1], [1, -2])`
+
+Then, we enter : 
+
+`>>> system.solve(0, 10)`
+
+Here, 0 and 10 are the equations's solutions. In this case, the solver returns :
+
+`[2.0, -4.0]`
+
+So now, we know that the system's solutions are x = 2 and y = -4.

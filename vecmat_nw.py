@@ -1,5 +1,5 @@
 # --------------------------------------------------
-# Vecmat (Version 1.4)
+# Vecmat (Version 1.4 NumWorks)
 # by Charlotte THOMAS and Sha-Chan~
 # last version released on the 15 of July.
 #
@@ -16,13 +16,9 @@ class Vector:
     self.dim = len(coord)
 
   def __add__(self, vec: "Vector"):
-    if vec.dim != self.dim:
-      raise ArithmeticError("The dimensions are incompatible")
     return Vector(*map(lambda x,y: x+y, self.coord, vec.coord))
 
   def __sub__(self, vec: "Vector"):
-    if vec.dim != self.dim:
-      raise ArithmeticError("The dimensions are incompatible")
     return Vector(*map(lambda x,y: x-y, self.coord, vec.coord))
 
   def __mul__(self, x):
@@ -30,16 +26,12 @@ class Vector:
       return Vector(*map(lambda y: x*y, self.coord))
     if isinstance(x, Vector):
       return Vector(*map(lambda y,z: y*z, self.coord, x.coord))
-    else:
-      raise TypeError("The wrong types were given")
 
   def __truediv__(self, x):
     if isinstance(x, (float, int)):
       return Vector(*map(lambda y: y/x, self.coord))
     if isinstance(x, Vector):
       return Vector(*map(lambda y,z: y/z, self.coord, x.coord))
-    else:
-      raise TypeError("The wrong types were given")
 
   def __str__(self):
     return str(tuple(self.coord))
@@ -81,13 +73,9 @@ class Matrix:
     return self.content[index]
 
   def __add__(self, matrix: "Matrix"):
-    if self.get_dim() != matrix.get_dim():
-      raise ArithmeticError("The dimensions are incompatible")
     return Matrix(*[[self[i][j] + matrix[i][j] for j in range(len(self[0]))] for i in range(len(self.content))])
   
   def __sub__(self, matrix: "Matrix"):
-    if self.get_dim() != matrix.get_dim():
-      raise ArithmeticError("The dimensions are incompatible")
     return Matrix(*[[self[i][j] - matrix[i][j] for j in range(len(self[0]))] for i in range(len(self.content))])
  
   def __mul__(self, x):
@@ -95,17 +83,13 @@ class Matrix:
       return Matrix(*[[self[i][j] * x for j in range(len(self[0]))] for i in range(len(self.content))])
     elif isinstance(x, Matrix):
       return Matrix(*[[sum([self[j][i] * x[i][j] for i in range(len(self[0]))]) for k in range(len(x[0]))] for j in range(len(self.content))])
-    else:
-      raise TypeError("The wrong types were given")
 
   def __truediv__(self, x):
     if isinstance(x, (float, int)):
       return Matrix(*[[self[i][j] / x for j in range(len(self[0]))] for i in range(len(self.content))])
     elif isinstance(x, Matrix):
       return self * x.inverse()
-    else:
-      raise TypeError("The wrong types were given")
-  
+
   def __str__(self):
     return "\n".join(map(str, self.content))
 
@@ -114,10 +98,9 @@ class Matrix:
 
   
   def __gauss_jordan_elimination(self):
-    def add_multiple_of_row(mat, row1: int, row2: int, multiple: float):
+    def add_multiple_of_row(mat, row1, row2, multiple):
       mat[row2][:] = list(map(lambda x,y: x+y, map(lambda x: x*multiple, self[row1]), self[row2]))
-      return mat
-      
+      return mat      
     mat, sign, det = self, 0, 1
     
     for i in range(len(mat.content) - 1):
@@ -174,18 +157,7 @@ class Matrix:
 
   def write_column(self, indef: "int", new_column: "list"):
     for i in range(len(self.content)): self[i][index] = new_column[i][0]
-
-  def solve(self, *solution):
-    mat = self
-    mat.augment(Matrix(*[[i] for i in solution]))
-    mat = mat.row_echelon_form()
-    var = [0 for i in range(len(solution))]
-    for i in range(1, mat.get_dim()[0] + 1):
-      var[-i] = (mat[-i][-1] - sum(map(lambda x,y:x*y, var, mat[-i]))) / mat[-i][-(i+1)]
-    return var
-     
+       
 def identity(n: "int"):
   return Matrix(*[[int(i == j) for i in range(n)] for j in range(n)])
-    
-    
     
