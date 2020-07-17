@@ -3,9 +3,8 @@
 # by Charlotte THOMAS and Sha-Chan~
 # last version released on the 15 of July.
 #
-# code provided with licence (CC BY-NC-SA 4.0)
-# for more information about licence :
-# https://creativecommons.org/licenses/by-nc-sa/4.0/
+# code provided with licence :
+# GNU General Public Licence v3.0
 # --------------------------------------------------
 
 from math import *
@@ -182,10 +181,8 @@ class Matrix:
     var = [0 for i in range(len(solution))]
     for i in range(1, mat.get_dim()[0] + 1):
       var[-i] = (mat[-i][-1] - sum(map(lambda x,y:x*y, var, mat[-i]))) / mat[-i][-(i+1)]
+    
     return var
      
 def identity(n: "int"):
   return Matrix(*[[int(i == j) for i in range(n)] for j in range(n)])
-    
-    
-    

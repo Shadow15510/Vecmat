@@ -3,9 +3,8 @@
 # by Charlotte THOMAS and Sha-Chan~
 # last version released on the 15 of July.
 #
-# code provided with licence (CC BY-NC-SA 4.0)
-# for more information about licence :
-# https://creativecommons.org/licenses/by-nc-sa/4.0/
+# code provided with licence :
+# GNU General Public Licence v3.0
 # --------------------------------------------------
 
 from math import *

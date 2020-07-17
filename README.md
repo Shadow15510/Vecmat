@@ -12,7 +12,7 @@ Version 1.4 released on 15 of July.
 
 ### Licence
 
-This code is provided with licence (CC BY-NC-SA 4.0). For more information about licence please [click here](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+This code was provided with licence GNU General Public Licence v3.0
 
 ## Vector's manipulations
 
