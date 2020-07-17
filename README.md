@@ -8,7 +8,7 @@ Vecmat is a librairie of vectorial and matricial manipulations. This librairie i
 
 There is two file : `vecmat.py` is the complete librairie for computer and `vecmat_nw.py` is the same librairie but without some functions like `solve`. This lighter version is specially design for the Numworks calculators but you can execute it on other calculators like Casio Graph 90+E or Graph 35+E II.
 
-Version 1.4 released on 15 of July.
+Version 1.5 released on 17 of July 2020.
 
 ### Licence
 

@@ -1,7 +1,7 @@
 # --------------------------------------------------
-# Vecmat (Version 1.4)
+# Vecmat (Version 1.5)
 # by Charlotte THOMAS and Sha-Chan~
-# last version released on the 15 of July.
+# last version released on the 17 of July 2020.
 #
 # code provided with licence :
 # GNU General Public Licence v3.0
