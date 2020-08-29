@@ -1,7 +1,7 @@
 # --------------------------------------------------
-# Vecmat (Version 1.5 NumWorks)
+# Vecmat (Version 1.5.1 NumWorks)
 # by Charlotte THOMAS and Sha-Chan~
-# last version released on the 17 of July 2020.
+# last version released on the 29 of August 2020.
 #
 # code provided with licence :
 # GNU General Public Licence v3.0
@@ -14,10 +14,10 @@ class Vector:
     self.coord = list(coord)
     self.dim = len(coord)
 
-  def __add__(self, vec: "Vector"):
+  def __add__(self, vec):
     return Vector(*map(lambda x,y: x+y, self.coord, vec.coord))
 
-  def __sub__(self, vec: "Vector"):
+  def __sub__(self, vec):
     return Vector(*map(lambda x,y: x-y, self.coord, vec.coord))
 
   def __mul__(self, x):
@@ -48,19 +48,19 @@ class Vector:
     a = abs(self)
     return Vector(*map(lambda x: x/a, self.coord))
     
-  def dotP(self, vec: "Vector"):
+  def dotP(self, vec):
     return sum(list(map(lambda x,y: x*y, self.coord, vec.coord)))
   
-  def crossP(self, vec: "Vector"):
+  def crossP(self, vec):
     if self.dim == 3 and vec.dim == 3: return Vector(self.z*vec.y - self.y*vec.z, self.x*vec.z - self.z*vec.x, self.y*vec.x - self.x*vec.y)
 
   def det(self, *vec):
     return Matrix([self.coord] + [i.coord for i in vec]).det()
   
-  def colinear(self, vec: "Vector"):
+  def colinear(self, vec):
     return not self.det(vec)
 
-  def angle(self, vec: "Vector"):
+  def angle(self, vec):
     return round(degrees(acos(self.dotP(vec) / (abs(self)*abs(vec)))), 2)
 
 
@@ -71,10 +71,10 @@ class Matrix:
   def __getitem__(self, index):
     return self.content[index]
 
-  def __add__(self, matrix: "Matrix"):
+  def __add__(self, matrix):
     return Matrix(*[[self[i][j] + matrix[i][j] for j in range(len(self[0]))] for i in range(len(self.content))])
   
-  def __sub__(self, matrix: "Matrix"):
+  def __sub__(self, matrix):
     return Matrix(*[[self[i][j] - matrix[i][j] for j in range(len(self[0]))] for i in range(len(self.content))])
  
   def __mul__(self, x):
@@ -119,7 +119,7 @@ class Matrix:
   def get_dim(self):
     return len(self.content), len(self[0])
     
-  def augment(self, mat: "Matrix"):
+  def augment(self, mat):
      [self[i].append(mat[i][j]) for j in range(len(mat[0])) for i in range(len(mat.content))]
         
   def sub(self, row_st, column_st, row_ed, column_ed):
@@ -145,16 +145,16 @@ class Matrix:
   def inverse(self):
     return self.comat().transpose() * (1/self.det())
 
-  def switch_row(self, row_1: "int", row_2: "int"):
+  def switch_row(self, row_1, row_2):
     self[row_1][:], self[row_2][:] = self[row_2][:], self[row_1][:]
 
-  def switch_column(self, column_1: "int", column_2: "int"):
+  def switch_column(self, column_1, column_2: "int"):
     for i in range(len(self.content)): self[i][column_1], self[i][column_2] = self[i][column_2], self[i][column_1]
     
-  def write_row(self, index: "int", new_row: "list"):
+  def write_row(self, index, new_row):
     self[index][:] = new_row[:]
 
-  def write_column(self, indef: "int", new_column: "list"):
+  def write_column(self, index, new_column):
     for i in range(len(self.content)): self[i][index] = new_column[i][0]
        
 def identity(n: "int"):
