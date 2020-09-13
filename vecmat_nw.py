@@ -1,7 +1,7 @@
 # --------------------------------------------------
 # Vecmat (Version 1.5.1 NumWorks)
-# by Charlotte THOMAS and Sha-Chan~
-# last version released on the 29 of August 2020.
+# by Charlotte THOMAS and Sha-chan~
+# last version released on the 13rd of September 2020.
 #
 # code provided with licence :
 # GNU General Public Licence v3.0
@@ -95,12 +95,14 @@ class Matrix:
   __radd__ = __add__
   __rmul__ = __mul__
 
+  def __copy(self):
+    return Matrix(*[[nb for nb in row] for row in self.content])
   
   def __gauss_jordan_elimination(self):
     def add_multiple_of_row(mat, row1, row2, multiple):
-      mat[row2][:] = list(map(lambda x,y: x+y, map(lambda x: x*multiple, self[row1]), self[row2]))
+      mat[row2][:] = list(map(lambda x,y: x+y, map(lambda x: x*multiple, mat[row1]), mat[row2]))
       return mat      
-    mat, sign, det = self, 0, 1
+    mat, sign, det = self.__copy(), 0, 1
     
     for i in range(len(mat.content) - 1):
       det *= mat[i][i]
@@ -109,7 +111,7 @@ class Matrix:
         if not mat[i][i]:
           mat.switch_row(k, i)
           sign += 1
-        mat = add_multiple_of_row(mat, i, k, -mat[k][i] / mat[i][i])
+        mat = add_multiple_of_row(mat.__copy(), i, k, -mat[k][i] / mat[i][i])
         
     return mat, mat.trace() * det * (-1)**sign
 
@@ -128,8 +130,18 @@ class Matrix:
   def det(self):
     return self.__gauss_jordan_elimination()[1]
 
-  def row_echelon_form(self):
+  def ref(self):
     return self.__gauss_jordan_elimination()[0]
+
+  def rref(self):
+    mat = self.__copy()
+    mat = mat.ref()
+    for row in range(len(mat.content)):
+      pivot = mat[row][row]
+      if pivot:
+        for column in range(len(mat.content)):
+          mat[row][column] /= pivot          
+    return mat
 
   def trace(self):
     rslt = 1

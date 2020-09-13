@@ -8,7 +8,7 @@ Vecmat is a librairie of vectorial and matricial manipulations. This librairie i
 
 There is two file : `vecmat.py` is the complete librairie for computer and `vecmat_nw.py` is the same librairie but without some functions like `solve`. This lighter version is specially design for the Numworks calculators but you can execute it on other calculators like Casio Graph 90+E or Graph 35+E II.
 
-Version 1.5 released on 17 of July 2020.
+Version 1.5.1 released on 13rd of september 2020.
 
 ### Licence
 
@@ -74,7 +74,8 @@ The matrices supports basic operation, `+` and `-` for addition/substraction bet
  - `Matrix.tranpose()` : Returns the transpose matrix.
  - `Matrix.comat()` : Returns the co-matrix.
  - `Matrix.inverse()` : Returns the inverse matrix. (Please take care to the determinant.)
- - `Matrix.row_echelon_form()` : Returns the row echelon form of the matrix. (Calculate by the Gauss-Jordan elimination.)
+ - `Matrix.ref()` : Returns the row echelon form of the matrix. (Calculate by the Gauss-Jordan elimination.)
+ - `Matrix.rref()` : Returns the reduced row echelon form
  - `Matrix.solve(*solution)` : Solves the linear system describe by Matrix. [Exemple](https://github.com/Shadow15510/Vecmat#Linear-system-solver)
 ## Other manipulations
 
