@@ -1,5 +1,7 @@
 # Vecmat
 
+Warning : this repository is archived and will no longer be maintain. I recommand you to use PyMathlib instead.
+
 ## General presentation
 
 ### Presentation
